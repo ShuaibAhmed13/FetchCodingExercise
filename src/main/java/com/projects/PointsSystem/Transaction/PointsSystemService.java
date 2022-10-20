@@ -2,7 +2,9 @@ package com.projects.PointsSystem.Transaction;
 
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,12 +21,12 @@ public class PointsSystemService {
     private List<Transaction> transactionList = new ArrayList<>();
 
     //constructor preloaded with dummy data (from coding exercise pdf)
-    public PointsSystemService() {
-        transactionList.add(new Transaction( "DANNON", 300, "2020-10-31T10:00:00Z"));
-        transactionList.add(new Transaction( "MILLER COORS", 10000, "2020-11-01T14:00:00Z"));
-        transactionList.add(new Transaction( "DANNON", -200, "2020-10-31T15:00:00Z"));
-        transactionList.add(new Transaction("UNILEVER", 200,  "2020-10-31T11:00:00Z"));
-        transactionList.add(new Transaction("DANNON", 1000,  "2020-11-02T14:00:00Z"));
+    public PointsSystemService() throws Exception {
+        addTransaction(new Transaction( "DANNON", 300, ZonedDateTime.parse("2020-10-31T10:00:00Z")));
+        addTransaction(new Transaction( "MILLER COORS", 10000, ZonedDateTime.parse("2020-11-01T14:00:00Z")));
+        addTransaction(new Transaction( "DANNON", -200, ZonedDateTime.parse("2020-10-31T15:00:00Z")));
+        addTransaction(new Transaction("UNILEVER", 200,  ZonedDateTime.parse("2020-10-31T11:00:00Z")));
+        addTransaction(new Transaction("DANNON", 1000,  ZonedDateTime.parse("2020-11-02T14:00:00Z")));
     }
 
     //Returns the transaction list
@@ -43,7 +45,7 @@ public class PointsSystemService {
         HashMap<String, Integer> map = new HashMap<>();
         if(pointsSpent > getTotalRemainingPoints()) throw new Exception("Insufficient points");
         for(Transaction transaction: transactionList) {
-            if(pointsSpent > transaction.getRemainingPoints()) {
+            if(pointsSpent > transaction.getRemainingPoints() && transaction.getRemainingPoints() >= 0) {
                 map.put(transaction.getPayer(), map.getOrDefault(transaction.getPayer(), 0) -
                         transaction.getRemainingPoints());
                 pointsSpent -= transaction.getRemainingPoints();
@@ -89,7 +91,8 @@ public class PointsSystemService {
                     throw new Exception(e.getMessage());
                 }
             } else {
-                transactionList.add(transaction);
+                this.transactionList.add(transaction);
+                Collections.sort(transactionList);
                 return "Transaction completed";
             }
         }
@@ -130,7 +133,8 @@ public class PointsSystemService {
         if(points >= 0) {
             transaction.setRemainingPoints(points);
             for (int index: indices) transactionList.get(index).setRemainingPoints(0);
-            transactionList.add(transaction);
+            Collections.sort(transactionList);
+            this.transactionList.add(transaction);
             return "Transaction completed";
         }
         throw new Exception("Error: Payer points go negative");
