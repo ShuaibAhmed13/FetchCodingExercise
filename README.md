@@ -3,9 +3,8 @@
 ## Downloading and running
 After cloning (or downloading) the project onto your computer, you can run the service by navigating to:
 `PointsSystem -> src -> main -> java -> com.projects.PointsSystem -> PointsSystemApplication` and running that class.
-
+___
 ## Requests
-
 
 PATH = `localhost:8080`
 where 8080 is the default port
@@ -16,6 +15,7 @@ GET| get a list of all the transactions                  |`/api/v1/all_transacti
 POST| insert a new transaction                            |`/api/v1/add_transaction`| JSON values: `payer`,`points`,`timestamp`
 GET| view user balance for each payer                    |`/api/v1/balance`| `NONE`
 GET| spend points as long as user has sufficient amounts |`/api/v1/spend_points`| RequestParam: `points`
+___
 
 ### Example 1 (Add Transaction):
 Using Postman (or alternative), select POST request and type in the url `localhost:8080/api/v1/add_transaction`. 
@@ -24,7 +24,7 @@ In the body, select raw and of type JSON. Insert transaction in JSON format in t
 `{"payer":"WARREN INC", "points": 400, "timestamp": "2020-08-01T14:00:00Z" }`
 
 Sending the request will add the transaction to the system
-
+___
 ### Example 2 (Spend Points):
 In Postman, create a request of type GET and type in the address: 
 
