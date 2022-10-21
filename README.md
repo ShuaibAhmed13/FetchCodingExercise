@@ -14,7 +14,7 @@ Type| Function                                            |Endpoint|Requirements
 GET| get a list of all the transactions                  |`/api/v1/all_transactions`| `NONE`
 POST| insert a new transaction                            |`/api/v1/add_transaction`| JSON values: `payer`,`points`,`timestamp`
 GET| view user balance for each payer                    |`/api/v1/balance`| `NONE`
-GET| spend points as long as user has sufficient amounts |`/api/v1/spend_points`| RequestParam: `points`
+POST| spend points as long as user has sufficient amounts |`/api/v1/spend_points`| RequestParam: `points`
 ___
 
 ### Example 1 (Add Transaction):
@@ -26,7 +26,7 @@ In the body, select raw and of type JSON. Insert transaction in JSON format in t
 Sending the request will add the transaction to the system
 ___
 ### Example 2 (Spend Points):
-In Postman, create a request of type GET and type in the address: 
+In Postman, create a request of type POST and type in the address: 
 
 `localhost:8080/api/v1/spend_points`
 

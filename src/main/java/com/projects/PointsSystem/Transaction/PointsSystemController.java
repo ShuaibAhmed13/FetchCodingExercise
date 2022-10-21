@@ -38,7 +38,7 @@ public class PointsSystemController {
         return pointsSystemService.getBalance();
     }
 
-    @GetMapping("api/v1/spend_points")
+    @PostMapping("api/v1/spend_points")
     public ResponseEntity spendPoints(@RequestParam Integer points) {
         try {
             return new ResponseEntity<HashMap<String, Integer>>(pointsSystemService.spendPoints(points), HttpStatus.OK);

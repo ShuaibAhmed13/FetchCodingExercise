@@ -30,4 +30,9 @@ public class Transaction implements Comparable<Transaction>{
     public int compareTo(Transaction t) {
         return getTimestamp().compareTo(t.getTimestamp());
     }
+
+    @Override
+    public String toString() {
+        return this.payer + " " + this.remainingPoints + " " + this.timestamp;
+    }
 }
